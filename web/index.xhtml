@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:growl id="msj" autoUpdate="true"/>
+        <div align="center">
+            <h:form id="formMascota">
+                <p:panel style="width: 40%">
+                    <f:facet name="header">
+                        <p:column>
+                            <p:outputLabel value="Mascotas"/>
+                        </p:column>
+                    </f:facet>
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="ID"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBeans.mascota.idMascota}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Nombre Mascota"/>
+
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBeans.mascota.nombreMascota}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Nombre Dueño"/> 
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBeans.mascota.nombreCliente}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Raza"/> 
+
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBeans.mascota.raza}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:commandButton value="Enviar" actionListener="#{mascotaBeans.guardarMascota()}" update=":dataTableMascota, :formMascota"/>
+                    <p:commandButton value="Nuevo" action="#{mascotaBeans.limpiar()}" update=":formMascota"/>
+                </p:panel>
+            </h:form>
+            <p:dataTable id="dataTableMascota" var="mascota" value="#{mascotaBeans.listarMascota()}" style="width: 80%">
+                <p:column headerText="Código">
+                    <p:outputLabel value="#{mascota.idMascota}"/>
+                </p:column>
+                <p:column headerText="Mascota">
+                    <p:outputLabel value="#{mascota.nombreMascota}"/>
+                </p:column>
+                <p:column headerText="Cliente">
+                    <p:outputLabel value="#{mascota.nombreCliente}"/>
+                </p:column>
+                <p:column headerText="Raza">
+                    <p:outputLabel value="#{mascota.raza}"/> 
+                </p:column>
+            </p:dataTable>
+
+
+        </div>
+    </h:body>
+</html>
+
