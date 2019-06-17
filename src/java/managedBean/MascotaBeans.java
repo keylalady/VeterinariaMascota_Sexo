@@ -8,8 +8,10 @@ package managedBean;
 import Dao.MascotaDao;
 import entidades.Mascota;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -29,43 +31,34 @@ public class MascotaBeans {
         this.mascota = new Mascota();
     }
 
-    public void guardarMascota() {
-        try {
-            MascotaDao mascotadao = new MascotaDao();
-            mascotadao.guardarMascota(mascota);
-
-        } catch (Exception e) {
-            System.out.println("error" + e);
-            
+    public String guardarMascota() {
+        MascotaDao dao = new MascotaDao();
+        boolean respuesta = dao.guardarMascota(mascota);
+        if (respuesta) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se guardo correctamente"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se pudo registrar"));
         }
-        
+        return "/index";
+
     }
 
-    public boolean actualizarMascota(Mascota mascota) {
-
-        boolean respuesta = true;
+    public String actualizarMascota() {
         try {
             MascotaDao mascotadao = new MascotaDao();
+            boolean resp = mascotadao.ActualizarMascota(mascota);
+            if (resp) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se actualizo correctamente"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se Pudo Actualizar"));
+
+            }
             mascotadao.ActualizarMascota(mascota);
         } catch (Exception e) {
-            respuesta = false;
+            System.out.println("Error::"+e);
         }
-        return respuesta;
+        return "/index";
     }
-
-    /* public ArrayList<Mascota> listarMascotas() {
-   
-        boolean respuesta = true;
-        try {
-            ArrayList<Mascota> lista = new ArrayList<>();
-            MascotaDao mascotadao = new MascotaDao();
-            lista = mascotadao.listarMascotas(session);
-            return lista;
-        } catch (Exception e) {
-            respuesta = false;
-        }
-     //  return respuesta;
-}*/
 
     public Mascota getMascota() {
         return mascota;
@@ -74,14 +67,28 @@ public class MascotaBeans {
     public void setMascota(Mascota mascota) {
         this.mascota = mascota;
     }
-  public ArrayList<Mascota> listarMascota(){
-      ArrayList<Mascota>milista = new ArrayList<>();
-      MascotaDao dao= new MascotaDao();
-     milista= dao.listarMascotas();
-     return milista;
-      
-  }
-  public String limpiar(){
-      return "/index.xhtml";
-  }
+
+    public ArrayList<Mascota> listarMascota() {
+        ArrayList<Mascota> milista = new ArrayList<>();
+        MascotaDao dao = new MascotaDao();
+        milista = dao.listarMascotas();
+        return milista;
+
+    }
+
+    public String limpiar() {
+        return "/index.xhtml";
+    }
+
+    public String eliminar(Mascota data) {
+        MascotaDao madao = new MascotaDao();
+        boolean respuesta = madao.eliminarMascota(data);
+        if (respuesta) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se elimino correctamente"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se pudo eliminar"));
+        }
+
+        return "/index.xhtml";
+    }
 }

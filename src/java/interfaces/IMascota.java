@@ -19,11 +19,13 @@ public interface IMascota {
 
     public abstract ArrayList<Mascota> listarMascotas();
 
-    public abstract void ActualizarMascota(Mascota mascota);
+    public abstract boolean ActualizarMascota(Mascota mascota);
 
     public abstract ArrayList<Mascota> listarMascotasRaza(Session sesion);
 
     public abstract ArrayList<Mascota> listarMascotasNombre(Session sesion);
 
     public abstract Integer Contar(Session sesion);
+    
+    public abstract boolean eliminarMascota(Mascota mascota);
 }

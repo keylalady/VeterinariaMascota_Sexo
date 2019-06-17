@@ -54,24 +54,31 @@
                             </p:column>
                         </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="Enviar" actionListener="#{mascotaBeans.guardarMascota()}" update=":dataTableMascota, :formMascota"/>
-                    <p:commandButton value="Nuevo" action="#{mascotaBeans.limpiar()}" update=":formMascota"/>
+                    <p:commandButton value="Registrar" action="#{mascotaBeans.guardarMascota()}" update=":formData:dataTableMascota,:formMascota" />
+                    <p:commandButton value="Actualizar" action="#{mascotaBeans.actualizarMascota()}" update=":formData:dataTableMascota,:formMascota"/>
                 </p:panel>
             </h:form>
-            <p:dataTable id="dataTableMascota" var="mascota" value="#{mascotaBeans.listarMascota()}" style="width: 80%">
-                <p:column headerText="Código">
-                    <p:outputLabel value="#{mascota.idMascota}"/>
-                </p:column>
-                <p:column headerText="Mascota">
-                    <p:outputLabel value="#{mascota.nombreMascota}"/>
-                </p:column>
-                <p:column headerText="Cliente">
-                    <p:outputLabel value="#{mascota.nombreCliente}"/>
-                </p:column>
-                <p:column headerText="Raza">
-                    <p:outputLabel value="#{mascota.raza}"/> 
-                </p:column>
-            </p:dataTable>
+            
+            <h:form id="formData">
+                <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBeans.mascota}" selectionMode="single" id="dataTableMascota" var="mascota" value="#{mascotaBeans.listarMascota()}" style="width: 40%">
+                    <p:ajax event="rowSelect" update=":formMascota"/>
+                    <p:column headerText="Código">
+                        <p:outputLabel value="#{mascota.idMascota}"/>
+                    </p:column>
+                    <p:column headerText="Mascota">
+                        <p:outputLabel value="#{mascota.nombreMascota}"/>
+                    </p:column>
+                    <p:column headerText="Cliente">
+                        <p:outputLabel value="#{mascota.nombreCliente}"/>
+                    </p:column>
+                    <p:column headerText="Raza">
+                        <p:outputLabel value="#{mascota.raza}"/> 
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Eliminar" action="#{mascotaBeans.eliminar(mascota)}" update=":formData:dataTableMascota"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
 
 
         </div>

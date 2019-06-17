@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import utilitarios.HibernateUtil;
 
 /**
@@ -32,6 +34,7 @@ public class MascotaDao implements IMascota {
             sesion.save(mascota);
             transaccion.commit();
         } catch (Exception e) {
+            System.out.println("ERROR DE GUARFDAR::" + e);
             respuesta = false;
         }
 
@@ -51,9 +54,24 @@ public class MascotaDao implements IMascota {
     }
 
     @Override
-    public void ActualizarMascota(Mascota mascota) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        sesion.update(mascota);
+    public boolean ActualizarMascota(Mascota mascota) {
+        System.out.println("error"+ mascota.getNombreCliente());
+        boolean resp= true;
+        Session sesion= null;
+        try {
+            sesion=HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction=sesion.beginTransaction();
+            sesion.update(mascota);
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println("Error en actualizar::"+e);
+        }finally{
+            if(sesion != null){
+                sesion.close();
+            }
+            
+        }
+       return resp;
     }
 
     @Override
@@ -84,4 +102,27 @@ public class MascotaDao implements IMascota {
 
     }
 
+    @Override
+    public boolean eliminarMascota(Mascota mascota) {
+        Session sesion = null;
+        boolean resp = true;
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            sesion.beginTransaction();
+            sesion.delete(mascota);
+            sesion.getTransaction().commit();
+
+        } catch (Exception e) {
+            resp = false;
+            System.out.println("ERROR EN ELIMINAR::" + e);
+            sesion.getTransaction().rollback();
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+
+            }
+
+        }
+        return resp;
+    }
 }
