@@ -1,5 +1,5 @@
 package entidades;
-// Generated 17/06/2019 12:43:34 AM by Hibernate Tools 4.3.1
+// Generated 23/06/2019 10:01:09 PM by Hibernate Tools 4.3.1
 
 
 
