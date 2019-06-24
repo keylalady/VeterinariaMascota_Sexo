@@ -70,6 +70,7 @@ public class PersonalDao implements IPersonal {
                 sesion.close();
             }
             
+            
         }
        return resp;
     }
