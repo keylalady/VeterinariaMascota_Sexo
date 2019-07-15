@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet prueba</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <div align="center">
+                    <h:form id="formSexo">
+                        <p:panel style="width: 40%">
+                            <f:facet name="header">
+                                <p:column>
+                                    <p:outputLabel value="Sexo"/>
+                                </p:column>
+                            </f:facet>
+                            <p:panelGrid>
+
+
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="ID"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{sexoBeans.sexo.idsexo}"/>
+                                    </p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Descripcion"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{sexoBeans.sexo.descripcion}">
+                                            <f:selectItem itemLabel="--Seleccione--"/>
+                                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Estado"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{sexoBeans.sexo.estado}">
+                                            <f:selectItem itemLabel="--Seleccione un Mascota--"/>
+                                            <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                            <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            <p:commandButton rendered="#{!sexoBeans.banderaSelect}" value="Registrar" action="#{sexoBeans.guardarSexo()}" update=":formData:dataTableSexo,:formSexo" />
+                            <p:commandButton rendered="#{sexoBeans.banderaSelect}" value="Actualizar" action="#{sexoBeans.actualizarSexo()}" update=":formData:dataTableSexo,:formSexo"/>
+                            <p:commandButton value="Nuevo" action="#{sexoBeans.limpiar()}" update=":formData:dataTableSexo,:formSexo"/>
+
+                        </p:panel>
+                    </h:form>
+
+                    <h:form id="formData">
+                        <p:dataTable rowKey="#{sexo.idsexo}" selection="#{sexoBeans.sexo}" selectionMode="single" id="dataTableSexo" var="sexo" value="#{sexoBeans.listarSexo()}" style="width: 40%">
+                            <p:ajax event="rowSelect" update=":formSexo" listener="#{sexoBeans.selectBandera()}"/>
+                            <p:column headerText="Código">
+                                <p:outputLabel value="#{sexo.idsexo}"/>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <p:outputLabel value="#{sexo.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <p:outputLabel value="#{sexo.estado}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton value="Eliminar" action="#{sexoBeans.eliminar(sexo)}" update=":formData:dataTableSexo,:formSexo"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

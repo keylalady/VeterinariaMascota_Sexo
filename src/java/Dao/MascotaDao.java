@@ -50,7 +50,10 @@ public class MascotaDao implements IMascota {
         Query query = sesion.createQuery("from Mascota");
         //Ejecutar la consulta y obtener la lista
         milista = (ArrayList<Mascota>) query.list();
+          sesion.close();
         return milista;
+    
+       
     }
 
     @Override

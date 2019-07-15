@@ -85,16 +85,16 @@
                                 </p:row>
                             </p:panelGrid>
 
-                            <p:commandButton value="Registrar" action="#{personalBeans.guardarPersonal()}" update=":formData:dataTablePersonal,:formpersonal"/>
+                            <p:commandButton rendered="#{!personalBeans.banderaSelect}" value="Guardar" action="#{personalBeans.guardarPersonal()}" update=":formData:dataTablePersonal,:formpersonal"/>
                             <p:commandButton value="Nuevo" action="#{personalBeans.limpiar()}" update=":formData:dataTablePersonal,:formpersonal"/>
-                            <p:commandButton value="Actualizar" action="#{personalBeans.actualizarPersonal()}" update=":formData:dataTablePersonal,:formpersonal"/>
+                            <p:commandButton rendered="#{personalBeans.banderaSelect}" value="Actualizar" action="#{personalBeans.actualizarPersonal()}" update=":formData:dataTablePersonal,:formpersonal"/>
 
                         </p:panel>
                     </h:form>
 
                     <h:form id="formData">
                         <p:dataTable rowKey="#{personal.idPersonal}" selection="#{personalBeans.personal}" selectionMode="single" id="dataTablePersonal" var="personal" value="#{personalBeans.listarPersonal()}" style="width: 80%">
-                            <p:ajax event="rowSelect" update=":formpersonal"/>
+                            <p:ajax event="rowSelect" update=":formpersonal" listener="#{personalBeans.selectBandera()}"/>
                             <p:column headerText="Código">
                                 <p:outputLabel value="#{personal.idPersonal}"/>
                             </p:column>

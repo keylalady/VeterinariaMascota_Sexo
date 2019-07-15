@@ -22,10 +22,8 @@ import javax.faces.context.FacesContext;
 public class MascotaBeans {
 
     private Mascota mascota;
+    private boolean banderaSelect = false;
 
-    /**
-     * Creates a new instance of MascotaBean
-     */
     //constructor
     public MascotaBeans() {
         this.mascota = new Mascota();
@@ -55,7 +53,7 @@ public class MascotaBeans {
             }
             mascotadao.ActualizarMascota(mascota);
         } catch (Exception e) {
-            System.out.println("Error::"+e);
+            System.out.println("Error::" + e);
         }
         return "/index";
     }
@@ -77,6 +75,7 @@ public class MascotaBeans {
     }
 
     public String limpiar() {
+        banderaSelect=false;
         return "/index.xhtml";
     }
 
@@ -91,4 +90,17 @@ public class MascotaBeans {
 
         return "/index.xhtml";
     }
+
+    public void selectBandera() {
+        banderaSelect = true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+
 }

@@ -5,8 +5,8 @@
  */
 package managedBean;
 
-import Dao.ClienteDao;
-import entidades.Cliente;
+import Dao.SexoDao;
+import entidades.Sexo;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
@@ -20,15 +20,15 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class ClienteBeans {
+public class SexoBeans {
 
     //private Date date9;
-    private Cliente cliente;
+    private Sexo sexo;
      private boolean banderaSelect = false;
 
     //constructor
-    public ClienteBeans() {
-        this.cliente = new Cliente();
+    public SexoBeans() {
+        this.sexo = new Sexo();
     }
     private java.util.Date data;
 
@@ -40,66 +40,66 @@ public class ClienteBeans {
         this.data = data;
     }
 
-    public String guardarCliente() {
-        ClienteDao clientedao = new ClienteDao();
-        boolean respuesta = clientedao.guardarCliente(cliente);
+    public String guardarSexo() {
+        SexoDao sexodao = new SexoDao();
+        boolean respuesta = sexodao.guardarSexo(sexo);
         if (respuesta) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se guardo correctamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se pudo registrar"));
         }
-        return "/RegistroCliente";
+        return "/RegistroSexo";
 
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Sexo getSexo() {
+        return sexo;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
-    public String actualizarCliente() {
+    public String actualizarSexo() {
         try {
-            ClienteDao mascotadao = new ClienteDao();
-            boolean resp = mascotadao.ActualizarMascota(cliente);
+            SexoDao mascotadao = new SexoDao();
+            boolean resp = mascotadao.ActualizarSexo(sexo);
             if (resp) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se actualizo correctamente"));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se Pudo Actualizar"));
 
             }
-            mascotadao.ActualizarMascota(cliente);
+            mascotadao.ActualizarSexo(sexo);
         } catch (Exception e) {
             System.out.println("Error::" + e);
         }
-        return "/RegistroCliente";
+        return "/RegistroSexo";
     }
 
-    public ArrayList<Cliente> listarCliente() {
-        ArrayList<Cliente> milista = new ArrayList<>();
-        ClienteDao dao = new ClienteDao();
-        milista = dao.listarCliente();
+    public ArrayList<Sexo> listarSexo() {
+        ArrayList<Sexo> milista = new ArrayList<>();
+        SexoDao dao = new SexoDao();
+        milista = dao.listarSexo();
         return milista;
 
     }
 
     public String limpiar() {
         banderaSelect=false;
-        return "/RegistroCliente.xhtml";
+        return "/RegistroSexo.xhtml";
     }
 
-    public String eliminar(Cliente data) {
-        ClienteDao madao = new ClienteDao();
-        boolean respuesta = madao.eliminarMascota(data);
+    public String eliminar(Sexo data) {
+        SexoDao madao = new SexoDao();
+        boolean respuesta = madao.eliminarSexo(data);
         if (respuesta) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se elimino correctamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se pudo eliminar"));
         }
 
-        return "/RegistroCliente.xhtml";
+        return "/RegistroSexo.xhtml";
     }
     public void selectBandera() {
         banderaSelect = true;

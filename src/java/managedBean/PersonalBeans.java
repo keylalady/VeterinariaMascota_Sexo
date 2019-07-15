@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -22,10 +23,8 @@ import javax.faces.context.FacesContext;
 public class PersonalBeans {
 
     private Personal personal;
+    private boolean banderaSelect = false;
 
-    /**
-     * Creates a new instance of PersonalBean
-     */
     //constructor
     public PersonalBeans() {
         this.personal = new Personal();
@@ -53,9 +52,9 @@ public class PersonalBeans {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se Pudo Actualizar"));
 
             }
-            personaldao.ActualizarPersonal(personal);
-        } catch (Exception e) {
-            System.out.println("Error::"+e);
+            // personaldao.ActualizarPersonal(personal);
+        } catch (HibernateException e) {
+            System.out.println("Error::" + e);
         }
         return "/RegistroPersonal";
     }
@@ -77,18 +76,31 @@ public class PersonalBeans {
     }
 
     public String limpiar() {
+        banderaSelect = false;
         return "/RegistroPersonal.xhtml";
     }
 
     public String eliminar(Personal data) {
-        PersonalDao madao = new PersonalDao();
-        boolean respuesta = madao.eliminarPersonal(data);
+        PersonalDao personadao = new PersonalDao();
+        boolean respuesta = personadao.eliminarPersonal(data);
         if (respuesta) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se elimino correctamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se pudo eliminar"));
         }
-
         return "/RegistroPersonal.xhtml";
     }
+
+    public void selectBandera() {
+        banderaSelect = true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+
 }

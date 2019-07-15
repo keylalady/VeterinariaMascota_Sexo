@@ -46,33 +46,34 @@ public class ClienteDao implements ICliente {
         Query query = sesion.createQuery("from Cliente");
         //Ejecutar la consulta y obtener la lista
         milista = (ArrayList<Cliente>) query.list();
+        sesion.close();
         return milista;
     }
 
     @Override
     public boolean ActualizarMascota(Cliente cliente) {
-        System.out.println("error"+ cliente.getNombre());
-        boolean resp= true;
-        Session sesion= null;
+        System.out.println("error" + cliente.getNombre());
+        boolean resp = true;
+        Session sesion = null;
         try {
-            sesion=HibernateUtil.getSessionFactory().openSession();
-            Transaction transaction=sesion.beginTransaction();
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = sesion.beginTransaction();
             sesion.update(cliente);
             transaction.commit();
         } catch (Exception e) {
-            System.out.println("Error en actualizar::"+e);
-        }finally{
-            if(sesion != null){
+            System.out.println("Error en actualizar::" + e);
+        } finally {
+            if (sesion != null) {
                 sesion.close();
             }
-            
+
         }
-       return resp;
+        return resp;
     }
 
     @Override
     public boolean eliminarMascota(Cliente cliente) {
-        
+
         Session sesion = null;
         boolean resp = true;
         try {
@@ -94,6 +95,5 @@ public class ClienteDao implements ICliente {
         }
         return resp;
     }
-    
 
 }

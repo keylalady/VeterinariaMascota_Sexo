@@ -81,17 +81,30 @@
                                         <p:inputText value="#{clienteBeans.cliente.email}"/>
                                     </p:column>
                                 </p:row>
+                                  <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Sexo"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{clienteBeans.cliente.sexo}">
+                                           <f:selectItem itemLabel="--Seleccione-"/>
+                                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                 
 
                             </p:panelGrid>
-                            <p:commandButton value="Registrar" action="#{clienteBeans.guardarCliente()}" update=":Data:dataTableCliente,:formcliente"/>
+                            <p:commandButton rendered="#{!clienteBeans.banderaSelect}"  value="Guardar" action="#{clienteBeans.guardarCliente()}" update=":Data:dataTableCliente,:formcliente"/>
                             <p:commandButton value="Nuevo" action="#{clienteBeans.limpiar()}" update=":Data:dataTableCliente,:formcliente"/>
-                            <p:commandButton value="Actualizar" action="#{clienteBeans.actualizarCliente()}" update=":Data:dataTableCliente,:formcliente"/>
+                            <p:commandButton rendered="#{clienteBeans.banderaSelect}"  value="Actualizar" action="#{clienteBeans.actualizarCliente()}" update=":Data:dataTableCliente,:formcliente"/>
                         </p:panel>
                     </h:form>
                     
                       <h:form id="Data">
-                          <p:dataTable rowKey="#{cliente.idcliente}" selection="#{clienteBeans.cliente}" selectionMode="single" id="dataTableCliente" var="cliente" value="#{clienteBeans.listarCliente()}" style="width: 80%">
-                            <p:ajax event="rowSelect" update=":formcliente"/>
+                          <p:dataTable rowKey="#{cliente.idcliente}" selection="#{clienteBeans.cliente}" selectionMode="single" id="dataTableCliente" var="cliente" value="#{clienteBeans.listarCliente()}" style="width: 95%">
+                            <p:ajax event="rowSelect" update=":formcliente" listener="#{clienteBeans.selectBandera()}"/>
                             <p:column headerText="Código">
                                 <p:outputLabel value="#{cliente.idcliente}"/>
                             </p:column>
@@ -113,6 +126,10 @@
                             <p:column headerText="Correo Electronico">
                                 <p:outputLabel value="#{cliente.email}"/> 
                             </p:column>
+                            <p:column headerText="Sexo">
+                                 <p:outputLabel value="#{cliente.sexo}"/> 
+                            </p:column>
+                             
                             <p:column>
                                 <p:commandButton value="Eliminar" action="#{clienteBeans.eliminar(cliente)}" update=":Data:dataTableCliente,:formcliente"/>
                             </p:column>

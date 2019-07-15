@@ -1,5 +1,5 @@
 package entidades;
-// Generated 24/06/2019 09:52:53 AM by Hibernate Tools 4.3.1
+// Generated 14/07/2019 07:08:16 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,13 +19,14 @@ public class Cliente  implements java.io.Serializable {
      private String direccion;
      private String telefono;
      private String email;
+     private char sexo;
      private Set mascotaporclientes = new HashSet(0);
 
     public Cliente() {
     }
 
 	
-    public Cliente(int idcliente, String nombre, String apellido, Date fechanacimiento, String direccion, String telefono, String email) {
+    public Cliente(int idcliente, String nombre, String apellido, Date fechanacimiento, String direccion, String telefono, String email, char sexo) {
         this.idcliente = idcliente;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -33,8 +34,9 @@ public class Cliente  implements java.io.Serializable {
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
+        this.sexo = sexo;
     }
-    public Cliente(int idcliente, String nombre, String apellido, Date fechanacimiento, String direccion, String telefono, String email, Set mascotaporclientes) {
+    public Cliente(int idcliente, String nombre, String apellido, Date fechanacimiento, String direccion, String telefono, String email, char sexo, Set mascotaporclientes) {
        this.idcliente = idcliente;
        this.nombre = nombre;
        this.apellido = apellido;
@@ -42,6 +44,7 @@ public class Cliente  implements java.io.Serializable {
        this.direccion = direccion;
        this.telefono = telefono;
        this.email = email;
+       this.sexo = sexo;
        this.mascotaporclientes = mascotaporclientes;
     }
    
@@ -93,6 +96,13 @@ public class Cliente  implements java.io.Serializable {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    public char getSexo() {
+        return this.sexo;
+    }
+    
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
     }
     public Set getMascotaporclientes() {
         return this.mascotaporclientes;

@@ -42,12 +42,13 @@ Contributor(s):
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mascota</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Mascota</property>
     <property name="hibernate.connection.username">root</property>
     <mapping resource="entidades/Mascota.hbm.xml"/>
     <mapping resource="entidades/Personal.hbm.xml"/>
     <mapping resource="entidades/Atencion.hbm.xml"/>
     <mapping resource="entidades/Mascotaporcliente.hbm.xml"/>
+    <mapping resource="entidades/Sexo.hbm.xml"/>
     <mapping resource="entidades/Cliente.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
